@@ -1,0 +1,9 @@
+# ./scripts/run-magenta-arm32
+qemu-system-arm -m 2048 \
+        -nographic \
+        -smp 4 \
+        -machine virt \
+        -cpu cortex-a15 \
+        -kernel ./artos.bin \
+        -append "root=/dev/mmcblk0  console=ttyAMA0 console=tty0" \
+        -gdb tcp::1234 -S
