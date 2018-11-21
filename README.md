@@ -1,5 +1,5 @@
 # FattyOS
-- 这是出于个人正在着手开发的RTOS内核。
+- 这是出于个人爱好正在着手开发的RTOS内核。
 
 ## 开发环境
 - 选择了qemu作为开发环境，因为qemu可以结合gdb进行调试，同时可以摆脱对具体硬件的依赖。
@@ -18,3 +18,6 @@
 - 在主目录下直接make即可，make主要分为两步，先编译生成内核，再调用qemu.sh运行内核
 - 准备用scons作为构建工具的，奈何scons还没学会，暂时先用make吧（其实make也没精通）
 - 如果想调试的话，在qemu.sh后添加-S -s或者 -gdb tcp::1234 -S参数启动内核。同时打开另外一个终端，输入arm-none-eabi-gdb，在gdb中file artos.elf（没错，FattyOS本意是想取名aRTOS的，但我github中已有ArtOS，无法再创建该仓，故而命名为FattyOS），再target remote:1234即可连上。注意这里一定要用arm-none-eabi-gdb而不是你主机（x86）上的那个gdb，否则无法调试（网上很多资料比较误人子弟，写的是gdb）
+
+## 后续
+- 完善代码、文档，包括本readme
