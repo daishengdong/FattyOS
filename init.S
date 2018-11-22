@@ -50,6 +50,10 @@ __vector_reset:
     /* setup stack */
     bl stack_setup
 
+	/* initialize vector table */
+	ldr r0, =_vectors
+	mcr p15, #0, r0, c12, c0, #0
+
     /* clear .bss */
     mov     r0,#0                   /* get a zero                       */
     ldr     r1, =__bss_start         /* bss start                        */

@@ -1,8 +1,26 @@
-extern void print(void *p);
+#include <klib.h>
 
-void artos_main(void) {
-    print("hello artos!\n");
+void arch_init(void)
+{
+	return;
+}
+
+
+
+
+void platform_init(void)
+{
+	interrupt_init();
+	timer_init();
+}
+
+void artos_main(void)
+{
+    arch_init();
+	platform_init();
 
     while (1) {
+		delay(100);
+		print_str("hello artos!\n");
     }
 }

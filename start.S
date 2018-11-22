@@ -1,7 +1,7 @@
-.section ".text.startup"
+.section ".text.vector"
 .code 32
 .align 0
-.globl _start
+.globl _vectors
 .extern __vector_reset
 .extern __vector_undefined
 .extern __vector_swi
@@ -10,8 +10,8 @@
 .extern __vector_reserved
 .extern __vector_irq
 .extern __vector_fiq
-_start:
-    b __vector_reset
+_vectors:
+    ldr pc, _vector_reset
     ldr pc, _vector_undefined
     ldr pc, _vector_swi
     ldr pc, _vector_prefetch_abort
