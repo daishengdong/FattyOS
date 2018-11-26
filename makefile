@@ -11,7 +11,7 @@ CFLAGS=-O2 -g -mthumb-interwork -mcpu=cortex-a15 -mfpu=vfpv3 -mfloat-abi=softfp 
 ASFLAGS=-O2 -g -mthumb-interwork -mcpu=cortex-a15 -mfpu=vfpv3 -mfloat-abi=softfp $(INCLUDE)
 LDFLAGS=-Tartos.ld -Ttext 60000000 -gc-sections
 
-OBJS=start.o init.o exception.o application.o print.o klib.o trap.o interrupt.o gic.o timer.o printk.o
+OBJS=start.o init.o exception.o application.o klib.o trap.o interrupt.o gic.o timer.o printk.o
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<

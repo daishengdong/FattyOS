@@ -64,6 +64,8 @@ void arm_gic_umask(k_uint32_t index, int irq)
     irq = irq - _gic_table[index].offset;
     RT_ASSERT(irq >= 0);
 
+	// TODO: I don't know why, but it works. Maybe uart is not init. Uart code will bring in later.
+	print_str("++++\n");
     GIC_DIST_ENABLE_SET(_gic_table[index].dist_hw_base, irq) = mask;
 }
 
