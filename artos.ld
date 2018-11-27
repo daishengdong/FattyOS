@@ -58,6 +58,8 @@ SECTIONS
     . = ALIGN(4);
     __bss_end = .;
 
+    __end = .;
+
     /* Stabs debugging sections.  */
     .stab 0 : { *(.stab) }
     .stabstr 0 : { *(.stabstr) }
@@ -66,6 +68,4 @@ SECTIONS
     .stab.index 0 : { *(.stab.index) }
     .stab.indexstr 0 : { *(.stab.indexstr) }
     .comment 0 : { *(.comment) }
-
-    __end = .;
 }

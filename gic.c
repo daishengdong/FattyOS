@@ -38,19 +38,22 @@ static struct arm_gic _gic_table[ARM_GIC_MAX_NR];
 
 static unsigned int _gic_max_irq;
 
-#define RT_ASSERT(exp) \
-	if (!exp) { \
-		printk("%s %d %s\n", __FUNCTION__, __LINE__, __FILE__); \
+// printk("%s %d %s\n", __FUNCTION__, __LINE__, __FILE__); \
+
+#define K_ASSERT(exp) \
+	if (!(exp)) { \
+		print_str("assert!\n"); \
+        while(1); \
 	}
 
 void arm_gic_mask(k_uint32_t index, int irq)
 {
     k_uint32_t mask = 1 << (irq % 32);
 
-    RT_ASSERT(index < ARM_GIC_MAX_NR);
+    K_ASSERT(index < ARM_GIC_MAX_NR);
 
     irq = irq - _gic_table[index].offset;
-    RT_ASSERT(irq >= 0);
+    K_ASSERT(irq >= 0);
 
     GIC_DIST_ENABLE_CLEAR(_gic_table[index].dist_hw_base, irq) = mask;
 }
@@ -59,13 +62,11 @@ void arm_gic_umask(k_uint32_t index, int irq)
 {
     k_uint32_t mask = 1 << (irq % 32);
 
-    RT_ASSERT(index < ARM_GIC_MAX_NR);
+    K_ASSERT(index < ARM_GIC_MAX_NR);
 
     irq = irq - _gic_table[index].offset;
-    RT_ASSERT(irq >= 0);
+	K_ASSERT(irq >= 0);
 
-	// TODO: I don't know why, but it works. Maybe uart is not init. Uart code will bring in later.
-	print_str("++++\n");
     GIC_DIST_ENABLE_SET(_gic_table[index].dist_hw_base, irq) = mask;
 }
 
@@ -74,7 +75,7 @@ int arm_gic_dist_init(k_uint32_t index, k_uint32_t dist_base, int irq_start)
     unsigned int gic_type, i;
     k_uint32_t cpumask = 1 << 0;
 
-    RT_ASSERT(index < ARM_GIC_MAX_NR);
+    K_ASSERT(index < ARM_GIC_MAX_NR);
 
     _gic_table[index].dist_hw_base = dist_base;
     _gic_table[index].offset = irq_start;
@@ -128,7 +129,7 @@ int arm_gic_dist_init(k_uint32_t index, k_uint32_t dist_base, int irq_start)
 
 int arm_gic_cpu_init(k_uint32_t index, k_uint32_t cpu_base)
 {
-    RT_ASSERT(index < ARM_GIC_MAX_NR);
+    K_ASSERT(index < ARM_GIC_MAX_NR);
 
     _gic_table[index].cpu_hw_base = cpu_base;
 
